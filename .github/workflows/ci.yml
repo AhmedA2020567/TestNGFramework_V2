@@ -1,0 +1,29 @@
+name: Automation Tests
+
+on:
+  workflow_dispatch:  # Manual trigger only
+
+jobs:
+  test:
+    runs-on: ubuntu-latest #Virtual machines where your jobs execute
+
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21.0.8'
+          distribution: 'oracle'
+          cache: 'maven'
+
+      - name: Verify Java version
+        run: java -version
+
+      - name: Install dependencies
+        run: mvn clean install -DskipTests
+
+      - name: Run tests
+        run: mvn test

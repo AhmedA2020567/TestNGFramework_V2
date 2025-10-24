@@ -1,0 +1,46 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "firstname": "John",
+      "lastname": "Doe",
+      "email": "john.doe@example.com",
+      "roles": ["admin", "editor"],
+      "address": {
+        "street": "123 Main Street",
+        "city": "Cairo",
+        "country": "Egypt"
+      }
+    },
+    {
+      "id": 2,
+      "firstname": "Jane",
+      "lastname": "Smith",
+      "email": "jane.smith@example.com",
+      "roles": ["viewer"],
+      "address": {
+        "street": "45 Tahrir Square",
+        "city": "Giza",
+        "country": "Egypt"
+      }
+    },
+    {
+      "id": 3,
+      "firstname": "Ali",
+      "lastname": "Hassan",
+      "email": "ali.hassan@example.com",
+      "roles": ["editor", "tester"],
+      "address": {
+        "street": "5 Nile Street",
+        "city": "Alexandria",
+        "country": "Egypt"
+      }
+    }
+  ],
+
+  "config": {
+    "baseUrl": "https://demoqa.com",
+    "browser": "chrome",
+    "timeout": 10
+  }
+}

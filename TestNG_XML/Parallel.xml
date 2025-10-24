@@ -1,0 +1,28 @@
+<suite name="Parallel Methods Suite" parallel="methods" thread-count="5">
+    <!-- All test methods run in parallel -->
+</suite>
+
+<suite name="Parallel Tests Suite" parallel="tests" thread-count="3">
+<!-- All <test> tags run in parallel -->
+</suite>
+
+<suite name="Sequential Suite" parallel="false">
+<!-- Everything runs sequentially -->
+</suite>
+
+        <!--
+       <suite name="My Test Suite"
+           verbose="1"
+           parallel="false"
+           thread-count="1"
+           annotations="JDK"
+           time-out="10000"
+           skipfailedinvocationcounts="false"
+           data-provider-thread-count="10"
+           group-by-instances="false"
+           preserve-order="true"
+           allow-return-values="false">
+        </suite>
+        Everything runs sequentially -->
+
+

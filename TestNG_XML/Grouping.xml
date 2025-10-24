@@ -1,0 +1,27 @@
+<suite name="Multiple Groups">
+    <test name="Smoke and Regression">
+        <groups>
+            <run>
+                <include name="smoke"/>
+                <include name="regression"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.example.TestClass"/>
+        </classes>
+    </test>
+</suite>
+
+        <!-- Specific Methods from Class-->
+<suite name="Specific Methods">
+<test name="Selected Methods">
+    <classes>
+        <class name="com.example.TestClass">
+            <methods>
+                <include name="testLogin"/>
+                <include name="testLogout"/>
+            </methods>
+        </class>
+    </classes>
+</test>
+</suite>

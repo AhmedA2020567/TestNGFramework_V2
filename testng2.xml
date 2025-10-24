@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Integration Test Suite Data Drivem">
+    <listeners>
+        <listener class-name="O2_tests.AllureListener"/>
+    </listeners>
+
+    <test name="Selenium Tests">
+
+        <!-- Test Level Parameters
+        <groups>
+            <run>
+                <include name="regression"/>
+            </run>
+        </groups>
+        -->
+
+        <classes>
+            <class name="O2_tests.dataDriven"/>
+        </classes>
+    </test>
+</suite>

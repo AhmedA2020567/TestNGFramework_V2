@@ -1,0 +1,31 @@
+<!-- Suite Level Parameters -->
+<suite name="Parameterized Suite">
+    <parameter name="browser" value="chrome"/>
+    <parameter name="url" value="https://example.com"/>
+    <parameter name="timeout" value="30"/>
+
+    <test name="Test 1">
+        <classes>
+            <class name="com.example.TestClass"/>
+        </classes>
+    </test>
+</suite>
+<!-- Test Level Parameters -->
+
+<suite name="Test Level Parameters">
+<test name="Chrome Test">
+    <parameter name="browser" value="chrome"/>
+    <classes>
+        <class name="com.example.BrowserTest"/>
+    </classes>
+</test>
+
+<test name="Firefox Test">
+    <parameter name="browser" value="firefox"/>
+    <classes>
+        <class name="com.example.BrowserTest"/>
+    </classes>
+</test>
+</suite>
+
+
