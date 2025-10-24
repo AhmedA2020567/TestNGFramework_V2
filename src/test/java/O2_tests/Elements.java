@@ -21,7 +21,8 @@ public class Elements extends BaseTest_Allure {
     @Step("Test: Verify text box presence")
     public void TextBox() throws InterruptedException {
         O2_pages.Elements page = new O2_pages.Elements(driver);
-        Thread.sleep(1000);
+        Thread.sleep(500);
+        Thread.sleep(500);
         page.clickOnTextBox();
         Thread.sleep(1000);
         page.enterFullName("John Doe");
