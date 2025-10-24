@@ -1,12 +1,10 @@
-name: Automation Tests Allure-Reports
+name: Selenium Tests with Allure Report
 
 on:
   workflow_dispatch:
 
 permissions:
   contents: write
-  pages: write
-  id-token: write
 
 jobs:
   test:
@@ -27,11 +25,25 @@ jobs:
         run: mvn clean test
         continue-on-error: true
 
+      - name: Check allure-results
+        if: always()
+        run: |
+          echo "=== Checking allure-results ==="
+          ls -la allure-results/ || echo "❌ allure-results not found"
+          echo "=== Files count ==="
+          ls -1 allure-results/ | wc -l || echo "0"
+
       - name: Generate Allure Report
         if: always()
         run: mvn allure:report
 
-      - name: Upload Allure Report
+      - name: Verify report generation
+        if: always()
+        run: |
+          echo "=== Checking report directory ==="
+          ls -la target/site/allure-maven-plugin/ || echo "❌ Report not generated"
+
+      - name: Deploy to GitHub Pages
         if: always()
         uses: peaceiris/actions-gh-pages@v4
         with:
@@ -40,8 +52,8 @@ jobs:
           destination_dir: reports/${{ github.run_number }}
           keep_files: true
 
-      - name: Comment Report URL
+      - name: Report URL
         if: always()
         run: |
-          echo "📊 Allure Report is available at:"
-          echo "https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/reports/${{ github.run_number }}"
+          echo "📊 Allure Report available at:"
+          echo "https://ahmeda2020567.github.io/TestNGFramework_V2/reports/${{ github.run_number }}"
