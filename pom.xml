@@ -177,10 +177,11 @@
                         <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
                     </systemPropertyVariables>
 
+                    <!-- CRITICAL: Add Allure TestNG listener -->
                     <properties>
                         <property>
-                            <name>usedefaultlisteners</name>
-                            <value>false</value>
+                            <name>listener</name>
+                            <value>io.qameta.allure.testng.AllureTestNg</value>
                         </property>
                     </properties>
                 </configuration>
@@ -193,7 +194,7 @@
                 </dependencies>
             </plugin>
 
-            <!-- 3) Allure plugin -->
+            <!-- 3) Allure plugin - default path works for both local and CI -->
             <plugin>
                 <groupId>io.qameta.allure</groupId>
                 <artifactId>allure-maven</artifactId>
@@ -201,7 +202,6 @@
                 <configuration>
                     <reportVersion>${allure.version}</reportVersion>
                     <resultsDirectory>${project.build.directory}/allure-results</resultsDirectory>
-                    <reportDirectory>${project.build.directory}/allure-report</reportDirectory>
                 </configuration>
             </plugin>
 
