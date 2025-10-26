@@ -55,6 +55,31 @@ jobs:
             exit 1
           fi
 
+      # === Minimal screenshot artifact handling inserted below ===
+
+      - name: Prepare screenshots artifact (ensure something to upload)
+        if: always()
+        run: |
+          # If screenshots folder exists, leave it. Otherwise create a placeholder file
+          if [ -d "test-output/screenshots" ]; then
+            echo "screenshots folder exists, will upload its contents."
+          else
+            mkdir -p test-output
+            echo "No screenshots were produced in this run." > test-output/no-screenshots.txt
+          fi
+
+      - name: Upload screenshots artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: screenshots-${{ github.run_id }}
+          path: |
+            test-output/screenshots
+            test-output/no-screenshots.txt
+          retention-days: 7
+
+      # === end of screenshot artifact insertion ===
+
       - name: Deploy to GitHub Pages
         if: always()
         uses: peaceiris/actions-gh-pages@v4

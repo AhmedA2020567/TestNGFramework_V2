@@ -1,6 +1,6 @@
 package O2_tests;
-
 import O1_base.BaseTest;
+import O1_base.BaseTest_Allure;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
@@ -12,7 +12,7 @@ public class TestListener implements ITestListener {
 
     @Override
     public void onTestFailure(ITestResult result) {
-        WebDriver driver = BaseTest.driver;
+        WebDriver driver = BaseTest_Allure.driver;
         if (driver != null) {
             try {
                 takeFailureScreenshot(driver, result.getName());
@@ -20,9 +20,12 @@ public class TestListener implements ITestListener {
                 throw new RuntimeException(e);
             }
         }
+        else
+            System.out.println("Driver is NUll");
     }
 
     private void takeFailureScreenshot(WebDriver driver, String testName) throws Exception {
+        System.out.println(testName);
         ScreenshotUtils.takeScreenshot(driver, testName);
     }
 

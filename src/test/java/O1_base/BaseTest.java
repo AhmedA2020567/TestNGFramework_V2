@@ -1,6 +1,5 @@
 package O1_base;
 
-import O2_tests.AllureListener;
 import O3_utils.ExtentManager;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
@@ -14,7 +13,6 @@ import org.testng.ITestResult;
 import org.testng.annotations.*;
 
 import java.io.File;
-import java.io.IOException;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -69,6 +67,11 @@ public class BaseTest {
         // Initialize WebDriver from DriverFactory (logging will happen in @BeforeMethod)
         driver = DriverFactory.initDriver("chrome");
         driver.get("https://www.tutorialspoint.com/selenium/practice/text-box.php");
+    }
+
+    public WebDriver getDriver_BaseTEST() {
+
+        return this.driver;
     }
 
     /**

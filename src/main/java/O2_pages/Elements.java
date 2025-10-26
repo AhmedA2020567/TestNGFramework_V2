@@ -20,7 +20,7 @@ public class Elements {
 
 
     private By webtables = By.xpath("//a[@href='webtables.php']");
-    private By editIcons = By.xpath("(//a[@title='edit' and @class='edit-wrap'])[2]");
+    private By editIcons = By.xpath("(//a[@title='editt' and @class='edit-wrap'])[2]");
     private By fName = By.xpath("(//input[@id='firstname' and contains(@class,'form-control')])[2]");
 
 

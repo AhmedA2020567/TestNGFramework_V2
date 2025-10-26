@@ -2,7 +2,7 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Integration Test Suite Elements">
     <listeners>
-        <listener class-name="O2_tests.AllureListener"/>
+        <listener class-name="O2_tests.TestListener"/>
     </listeners>
 
     <test name="Selenium Tests">

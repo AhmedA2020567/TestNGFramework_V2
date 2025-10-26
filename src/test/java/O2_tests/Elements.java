@@ -12,13 +12,13 @@ import org.testng.annotations.Test;
 @Epic("Web Application Testing")
 @Feature("Text Box Feature")
 //@Listeners(O2_tests.TestListener.class)
-public class Elements extends BaseTest_Allure {
+public class Elements extends BaseTest {
 
     @Test(priority = 1, groups = {"regression"})
-    @Description("Verify text box is displayed on the page")
-    @Severity(SeverityLevel.CRITICAL)
-    @Story("Text Box Validation")
-    @Step("Test: Verify text box presence")
+//    @Description("Verify text box is displayed on the page")
+//    @Severity(SeverityLevel.CRITICAL)
+//    @Story("Text Box Validation")
+//    @Step("Test: Verify text box presence")
     public void TextBox() throws InterruptedException {
         O2_pages.Elements page = new O2_pages.Elements(driver);
         Thread.sleep(500);
@@ -39,10 +39,10 @@ public class Elements extends BaseTest_Allure {
     }
 
     @Test(priority = 2)
-    @Description("Verify CheckBox is displayed on the page")
-    @Severity(SeverityLevel.CRITICAL)
-    @Story("CheckBox Validation")
-    @Step("Test: Verify CheckBox presence")
+//    @Description("Verify CheckBox is displayed on the page")
+//    @Severity(SeverityLevel.CRITICAL)
+//    @Story("CheckBox Validation")
+//    @Step("Test: Verify CheckBox presence")
     public void CheckBox() throws InterruptedException {
         Thread.sleep(1000);
         O2_pages.Elements page = new O2_pages.Elements(driver);
@@ -53,10 +53,10 @@ public class Elements extends BaseTest_Allure {
     }
 
     @Test(priority = 3)
-    @Description("Verify webtable displayed on the page")
-    @Severity(SeverityLevel.CRITICAL)
-    @Story("webtable Validation")
-    @Step("Test: Verify webtable presence")
+//    @Description("Verify webtable displayed on the page")
+//    @Severity(SeverityLevel.CRITICAL)
+//    @Story("webtable Validation")
+//    @Step("Test: Verify webtable presence")
     public void webtable() throws InterruptedException {
         Thread.sleep(1000);
         O2_pages.Elements page = new O2_pages.Elements(driver);

@@ -11,14 +11,25 @@ import java.util.Date;
 public class ScreenshotUtils {
 
     public static String takeScreenshot(WebDriver driver, String testName) throws Exception {
-        System.out.println(System.getProperty("user.dir"));
+        System.out.println("takeScreenshot Utils ......." );
+
+        String screenshotDir = System.getProperty("user.dir") + "/test-output/screenshots/";
+        File directory = new File(screenshotDir);
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+
+        // Generate unique screenshot name
         String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String path = System.getProperty("user.dir") + "/screenshots/" + testName + "_" + timestamp + ".png";
+        String screenshotPath = screenshotDir + testName + "_" + timestamp + ".png";
 
-        File src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-        File destination = new File(path);
-        FileUtils.copyFile(src, destination);
+        // Take screenshot
+        TakesScreenshot ts = (TakesScreenshot) driver;
+        File source = ts.getScreenshotAs(OutputType.FILE);
+        File destination = new File(screenshotPath);
+        FileUtils.copyFile(source, destination);
 
-        return path;
+        System.out.println("📸 Screenshot saved: " + screenshotPath);
+        return screenshotPath;
     }
 }
