@@ -15,24 +15,26 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <aspectj.version>1.9.24</aspectj.version>
         <allure.version>2.30.0</allure.version>
-        <!-- CHANGED: Updated to Java 21 to match GitHub Actions -->
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
     </properties>
 
     <dependencies>
+        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>2.20.0</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
             <version>4.36.0</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.testng/testng -->
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
@@ -40,36 +42,42 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
             <version>6.3.2</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
             <version>5.4.1</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
             <version>5.4.1</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/com.mysql/mysql-connector-j -->
         <dependency>
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
             <version>9.4.0</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>42.7.8</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc -->
         <dependency>
             <groupId>com.microsoft.sqlserver</groupId>
             <artifactId>mssql-jdbc</artifactId>
@@ -77,33 +85,37 @@
             <scope>compile</scope>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/com.aventstack/extentreports -->
         <dependency>
             <groupId>com.aventstack</groupId>
             <artifactId>extentreports</artifactId>
             <version>5.1.2</version>
         </dependency>
 
-        <!-- IMPORTANT: Allure TestNG Integration -->
+        <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-testng -->
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-testng</artifactId>
             <version>${allure.version}</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>2.20.0</version>
         </dependency>
 
-        <!-- CHANGED: Removed 'runtime' scope - needed at compile time too -->
+        <!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
             <version>${aspectj.version}</version>
+            <scope>runtime</scope>
         </dependency>
 
     </dependencies>
+
 
     <build>
         <plugins>
@@ -114,13 +126,12 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.11.0</version>
                 <configuration>
-                    <!-- CHANGED: Updated to match properties -->
-                    <source>21</source>
-                    <target>21</target>
+                    <source>11</source>
+                    <target>11</target>
                 </configuration>
             </plugin>
 
-            <!-- Copy AspectJ weaver to target/libs -->
+            <!-- 1) Copy the AspectJ weaver into target/libs before tests run -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
@@ -147,21 +158,23 @@
                 </executions>
             </plugin>
 
-            <!-- Maven Surefire Plugin with AspectJ -->
+            <!-- 2) Surefire: use the copied jar and quote the javaagent (Windows-safe) -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.5.4</version>
                 <configuration>
+                    <!-- CDATA preserves quotes and spaces for Windows command line -->
                     <argLine><![CDATA[-javaagent:"${project.build.directory}/libs/aspectjweaver-${aspectj.version}.jar"]]></argLine>
 
+                    <!-- TestNG suite -->
                     <suiteXmlFiles>
                         <suiteXmlFile>testng_Master.xml</suiteXmlFile>
                     </suiteXmlFiles>
 
-                    <!-- ADDED: Ensure allure-results goes to correct directory -->
+                    <!-- System properties for Allure -->
                     <systemPropertyVariables>
-                        <allure.results.directory>${project.basedir}/allure-results</allure.results.directory>
+                        <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
                     </systemPropertyVariables>
 
                     <properties>
@@ -180,17 +193,15 @@
                 </dependencies>
             </plugin>
 
-            <!-- FIXED: Allure Maven Plugin with correct configuration -->
+            <!-- 3) Allure plugin -->
             <plugin>
                 <groupId>io.qameta.allure</groupId>
                 <artifactId>allure-maven</artifactId>
                 <version>2.13.0</version>
                 <configuration>
                     <reportVersion>${allure.version}</reportVersion>
-                    <!-- CHANGED: Results come from project root, not target -->
-                    <resultsDirectory>${project.basedir}/allure-results</resultsDirectory>
-                    <!-- CHANGED: Report goes to site for GitHub Pages -->
-                    <reportDirectory>${project.build.directory}/site/allure-maven-plugin</reportDirectory>
+                    <resultsDirectory>${project.build.directory}/allure-results</resultsDirectory>
+                    <reportDirectory>${project.build.directory}/allure-report</reportDirectory>
                 </configuration>
             </plugin>
 
