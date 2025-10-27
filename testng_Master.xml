@@ -3,7 +3,7 @@
 <suite name="Master Test Suite" verbose="1">
 
     <suite-files>
-        <suite-file path="testng1.xml"/>
+        <suite-file path="testng2.xml"/>
     </suite-files>
 
 </suite>

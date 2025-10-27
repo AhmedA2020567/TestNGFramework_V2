@@ -10,25 +10,28 @@
     <name>TestNGFramework</name>
     <url>http://maven.apache.org</url>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <aspectj.version>1.9.24</aspectj.version>
-    </properties>
+    <!-- -->
+    <!-- Defines custom variables for use in the POM file.-->
+    <!-- project files are encoded using the UTF-8 character set. -->
+   <properties>
+       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+       <aspectj.version>1.9.24</aspectj.version>
+   </properties>
 
-    <dependencies>
-        <!--
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>3.8.1</version>
-            <scope>test</scope>
+   <dependencies>
+       <!--
+       <dependency>
+           <groupId>junit</groupId>
+           <artifactId>junit</artifactId>
+           <version>3.8.1</version>
+           <scope>test</scope>
 
-        </dependency>
-         -->
+       </dependency>
+        -->
 
 
-        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
-        <dependency>
+        <!-- Used for handling JSON data (reading, writing, and mapping it to Java objects). -->
+       <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>2.20.0</version>
@@ -113,7 +116,8 @@
             <version>2.20.0</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
+        <!-- A library related to AspectJ, often used with Allure/TestNG
+        to "weave" reporting logic into the tests at runtime. -->
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>

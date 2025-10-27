@@ -120,7 +120,10 @@
     <build>
         <plugins>
 
-            <!-- Maven Compiler Plugin -->
+            <!-- Maven Compiler Plugin
+            Job: Takes your human-readable Java code and translates it into machine-readable code (bytecode).
+            Configuration: You told it to use the "Java 11 language" for both the code you write and the environment it should run in.
+            -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -131,7 +134,16 @@
                 </configuration>
             </plugin>
 
-            <!-- 1) Copy the AspectJ weaver into target/libs before tests run -->
+            <!-- 1) Copy the AspectJ weaver into target/libs before tests run
+            Function (1): This plugin is configured to perform a specific task
+            before tests run: copying the aspectjweaver JAR file into a separate directory
+             (target/libs).
+
+             Job: Copies a specific material (the aspectjweaver JAR) from your local Maven storage
+             and puts it into a special spot (target/libs) just before the tests start.
+             Why? The next tool (Surefire) needs to know exactly where that special material is located.
+             It's like ensuring the hammer is right on the workbench when the carpenter starts.
+            -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
@@ -158,7 +170,9 @@
                 </executions>
             </plugin>
 
-            <!-- 2) Surefire: use the copied jar and quote the javaagent (Windows-safe) -->
+            <!-- 2) Surefire: use the copied jar and quote the javaagent (Windows-safe)
+            This plugin is responsible for running your TestNG tests.
+            -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
