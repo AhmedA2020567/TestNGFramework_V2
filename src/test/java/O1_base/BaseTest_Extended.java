@@ -4,19 +4,12 @@ import O3_utils.ExtentManager;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
-import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 
-import java.io.File;
 import java.lang.reflect.Method;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
-//@Listeners(O2_tests.TestListener.class)
 public class BaseTest_Extended {
 
     public static WebDriver driver;
@@ -32,6 +25,15 @@ public class BaseTest_Extended {
     public void setupReport() {
         extent = ExtentManager.getInstance();
         System.out.println("✅ Extent Report initialized");
+    }
+
+    /**
+     * Initialize WebDriver before each test class
+     */
+    @BeforeClass
+    public void setup() {
+        driver = DriverFactory.initDriver("chrome");
+        driver.get("https://www.tutorialspoint.com/selenium/practice/text-box.php");
     }
 
     /**
@@ -51,14 +53,8 @@ public class BaseTest_Extended {
         getExtentTest().info("🔗 URL: https://www.tutorialspoint.com/selenium/practice/text-box.php");
     }
 
-    @BeforeClass
-    public void setup() {
-        driver = DriverFactory.initDriver("chrome");
-        driver.get("https://www.tutorialspoint.com/selenium/practice/text-box.php");
-    }
-
     /**
-     * Log test results and capture screenshots on failure
+     * Log test results after each test method
      */
     @AfterMethod
     public void logTestResult(ITestResult result) throws Exception {
@@ -66,10 +62,6 @@ public class BaseTest_Extended {
             getExtentTest().log(Status.FAIL, "❌ TEST FAILED: " + result.getName());
             getExtentTest().log(Status.FAIL, "📋 Failure Reason: " + result.getThrowable().getMessage());
 
-            // Capture and attach screenshot
-            String screenshotPath = captureScreenshot(result.getName());
-            getExtentTest().addScreenCaptureFromPath(screenshotPath, "Failure Screenshot");
-            getExtentTest().info("📸 Screenshot attached");
         } else if (result.getStatus() == ITestResult.SUCCESS) {
             getExtentTest().log(Status.PASS, "✅ TEST PASSED: " + result.getName());
         } else if (result.getStatus() == ITestResult.SKIP) {
@@ -84,11 +76,18 @@ public class BaseTest_Extended {
         getExtentTest().info("⏱️ Execution Time: " + duration + " seconds");
     }
 
+    /**
+     * Clean up after all tests in the class complete
+     */
     @AfterClass
     public void tearDown() throws InterruptedException {
         Thread.sleep(3000);
-        getExtentTest().info("🔚 Closing browser");
-        DriverFactory.quitDriver();
+
+        // Safe cleanup - no extent logging here as extentTest might be null
+        if (driver != null) {
+            DriverFactory.quitDriver();
+            System.out.println("🔚 Browser closed");
+        }
     }
 
     /**
@@ -99,6 +98,7 @@ public class BaseTest_Extended {
         if (extent != null) {
             extent.flush();
             System.out.println("✅ Extent Report generated successfully!");
+            System.out.println("📊 Report location: " + System.getProperty("user.dir") + "/test-output/ExtentReport.html");
         }
     }
 
@@ -109,65 +109,50 @@ public class BaseTest_Extended {
         return extentTest.get();
     }
 
-    /**
-     * Capture screenshot and return file path
-     */
-    public static String captureScreenshot(String testName) throws Exception {
-        // Create screenshots directory
-        String screenshotDir = System.getProperty("user.dir") + "/test-output/screenshots/";
-        File directory = new File(screenshotDir);
-        if (!directory.exists()) {
-            directory.mkdirs();
-        }
-
-        // Generate unique screenshot name
-        String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String screenshotPath = screenshotDir + testName + "_" + timestamp + ".png";
-
-        // Take screenshot
-        TakesScreenshot ts = (TakesScreenshot) driver;
-        File source = ts.getScreenshotAs(OutputType.FILE);
-        File destination = new File(screenshotPath);
-        FileUtils.copyFile(source, destination);
-
-        System.out.println("📸 Screenshot saved: " + screenshotPath);
-        return screenshotPath;
-    }
-
     // ==================== HELPER METHODS FOR LOGGING ====================
 
     /**
      * Log an info step in the report
      */
     public static void logStep(String stepDescription) {
-        getExtentTest().info("📝 " + stepDescription);
+        if (getExtentTest() != null) {
+            getExtentTest().info("📝 " + stepDescription);
+        }
     }
 
     /**
      * Log a pass message
      */
     public static void logPass(String message) {
-        getExtentTest().pass("✅ " + message);
+        if (getExtentTest() != null) {
+            getExtentTest().pass("✅ " + message);
+        }
     }
 
     /**
      * Log a fail message
      */
     public static void logFail(String message) {
-        getExtentTest().fail("❌ " + message);
+        if (getExtentTest() != null) {
+            getExtentTest().fail("❌ " + message);
+        }
     }
 
     /**
      * Log a warning message
      */
     public static void logWarning(String message) {
-        getExtentTest().warning("⚠️ " + message);
+        if (getExtentTest() != null) {
+            getExtentTest().warning("⚠️ " + message);
+        }
     }
 
     /**
      * Log with custom status
      */
     public static void log(Status status, String message) {
-        getExtentTest().log(status, message);
+        if (getExtentTest() != null) {
+            getExtentTest().log(status, message);
+        }
     }
 }

@@ -39,7 +39,7 @@
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>7.11.0</version>
-            <scope>test</scope>
+            <!-- <scope>test</scope>  -->
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
@@ -179,7 +179,8 @@
                 <version>3.5.4</version>
                 <configuration>
                     <!-- CDATA preserves quotes and spaces for Windows command line -->
-                    <argLine><![CDATA[-javaagent:"${project.build.directory}/libs/aspectjweaver-${aspectj.version}.jar"]]></argLine>
+                    <argLine>
+                        <![CDATA[-javaagent:"${project.build.directory}/libs/aspectjweaver-${aspectj.version}.jar"]]></argLine>
 
                     <!-- TestNG suite -->
                     <suiteXmlFiles>

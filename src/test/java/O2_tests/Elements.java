@@ -12,7 +12,7 @@ import org.testng.annotations.Test;
 @Epic("Web Application Testing")
 @Feature("Text Box Feature")
 //@Listeners(O2_tests.TestListener.class)
-public class Elements extends BaseTest {
+public class Elements extends BaseTest_Allure {
 
     @Test(priority = 1, groups = {"regression"})
 //    @Description("Verify text box is displayed on the page")

@@ -1,16 +1,9 @@
 package O1_base;
 
-import O2_tests.AllureListener;
 import io.qameta.allure.Step;
-import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.*;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 //@Listeners(AllureListener.class)
 public class BaseTest_Allure {

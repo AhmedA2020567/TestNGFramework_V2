@@ -1,6 +1,7 @@
 package O2_tests;
 
 import O1_base.BaseTest_Allure;
+import O1_base.BaseTest_Extended;
 import O3_utils.PropertyReader;
 import io.qameta.allure.*;
 import org.testng.annotations.Test;
@@ -18,9 +19,9 @@ import java.sql.SQLException;
 public class dataDriven extends BaseTest_Allure {
 
     @Test(priority = 1, groups = {"regression"})
-    @Description("Verify jsonTest")
-    @Severity(SeverityLevel.CRITICAL)
-    @Story("Login functionality")
+//    @Description("Verify jsonTest")
+//    @Severity(SeverityLevel.CRITICAL)
+//    @Story("Login functionality")
     public void jsonTest() throws IOException {
         JsonReader js = new JsonReader();
         String name = js.getData(1);
