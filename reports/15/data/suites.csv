@@ -1,0 +1,5 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","354","jsonTest","Integration Test Suite Data Drivem","Sat Nov 01 12:23:23 UTC 2025","passed","Sat Nov 01 12:23:23 UTC 2025","O2_tests.dataDriven","Selenium Tests","O2_tests.dataDriven","jsonTest"
+"Verify DbReader","1","DbReader","Integration Test Suite Data Drivem","Sat Nov 01 12:23:24 UTC 2025","passed","Sat Nov 01 12:23:24 UTC 2025","O2_tests.dataDriven","Selenium Tests","O2_tests.dataDriven","DbReader"
+"Verify ExcelReader","1","ExcelReader","Integration Test Suite Data Drivem","Sat Nov 01 12:23:24 UTC 2025","passed","Sat Nov 01 12:23:24 UTC 2025","O2_tests.dataDriven","Selenium Tests","O2_tests.dataDriven","ExcelReader"
+"Verify propertyReader","1","propertyReader","Integration Test Suite Data Drivem","Sat Nov 01 12:23:24 UTC 2025","passed","Sat Nov 01 12:23:24 UTC 2025","O2_tests.dataDriven","Selenium Tests","O2_tests.dataDriven","propertyReader"
